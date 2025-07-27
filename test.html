@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>V07 Model Tests</title>
+    <script type="module">
+        import * as model from './src/lib/modelCalculations.ts';
+
+        // Test data
+        const testData = {
+            vix: {
+                current: 35,
+                last20Days: Array(20).fill(0).map((_, i) => 20 + i * 0.5)
+            },
+            market: {
+                spyReturn: -2.5,
+                gldReturn: 1.5,
+                spyMA20: 450,
+                spyPrice: 440
+            },
+            usd: {
+                ratePolicy: {
+                    currentRate: 5.25,
+                    terminalRate: 5.50,
+                    currency: 'USD',
+                    hawkishWords: 3,
+                    dovishWords: 1
+                },
+                growthMomentum: {
+                    employment: { currency: 'USD', value: 175 },
+                    pmi: 48.5,
+                    gdpQoQ: 1.5
+                },
+                realInterestEdge: {
+                    currency: 'USD',
+                    twoYearYield: 4.7,
+                    breakeven5Y5Y: 2.3
+                }
+            }
+        };
+
+        // Run tests
+        window.onload = function() {
+            const output = document.getElementById('output');
+            
+            function log(text) {
+                output.innerHTML += text + '<br>';
+            }
+
+            log('=== V07 MODEL VALIDATION ===\n');
+
+            try {
+                // Test 1: Market Regime
+                const regime = model.detectMarketRegime(testData.vix, testData.market, false);
+                log('Market Regime: ' + regime);
+
+                // Test 2: Factor Weights
+                const weights = model.getFactorWeights(regime);
+                log('\nFactor Weights: ' + JSON.stringify(weights, null, 2));
+
+                // Test 3: Rate Policy
+                const rateScore = model.calculateRatePolicy(testData.usd.ratePolicy);
+                log('\nRate Policy Score: ' + rateScore);
+
+                // Test 4: Growth Momentum
+                const growthScore = model.calculateGrowthMomentum(testData.usd.growthMomentum);
+                log('\nGrowth Momentum Score: ' + growthScore);
+
+                // Test 5: Real Interest Edge
+                const realRateScore = model.calculateRealInterestEdge(testData.usd.realInterestEdge);
+                log('\nReal Interest Edge Score: ' + realRateScore);
+
+                log('\nAll tests completed successfully!');
+            } catch (error) {
+                log('\nError running tests: ' + error.message);
+                console.error(error);
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>V07 Model Tests</h1>
+    <pre id="output" style="font-family: monospace;"></pre>
+</body>
+</html> 
