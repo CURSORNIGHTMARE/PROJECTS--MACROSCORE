@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Loading animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Gradient backgrounds for different signal strengths */
+.signal-very-strong {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.signal-strong {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.signal-moderate {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.signal-weak {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+.signal-neutral {
+  background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+}
+
+/* Card hover effects */
+.forex-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.forex-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Market regime indicators */
+.regime-risk-off {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.regime-risk-on {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.regime-neutral {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.regime-central-bank {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
